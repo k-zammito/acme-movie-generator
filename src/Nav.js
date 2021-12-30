@@ -1,7 +1,12 @@
 import React from 'react';
+import MovieButton from './MovieButton';
 
 const Nav = () => {
-  return <nav>ACME Movie Generator</nav>;
+  return (
+    <nav>
+      ACME Movies <MovieButton />
+    </nav>
+  );
 };
 
 export default Nav;

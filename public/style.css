@@ -1,10 +1,40 @@
 body {
-  background-color: dodgerblue;
+  background-image: url('3230357.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
   color: cornsilk;
+  font-family: sans-serif;
+}
+
+.initialState {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.addMovie {
+  padding: 1rem;
 }
 
 .app {
   text-align: center;
+}
+
+.movie {
+  display: flex;
+  flex-flow: column wrap;
+  padding: 1rem;
+  height: 80px;
 }
 
 nav {
@@ -13,14 +43,5 @@ nav {
   align-items: center;
   min-height: 10vh;
   background: rgb(13, 56, 93);
-  color: cornsilk;
-}
-
-a {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  list-style: none;
-  text-decoration: none;
   color: cornsilk;
 }

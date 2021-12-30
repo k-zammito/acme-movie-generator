@@ -27,10 +27,10 @@ const _addMovie = (movie) => {
   };
 };
 
-const _deleteMovie = (movie) => {
+const _deleteMovie = (id) => {
   return {
     type: DELETE_MOVIE,
-    movie,
+    id,
   };
 };
 const _incrementRating = (movie) => {
@@ -46,33 +46,12 @@ const _decrementRating = (movie) => {
   };
 };
 
-//----------REDUCER----------
-
-const moviesReducer = (state = [], action) => {
-  switch (action.type) {
-    case GET_MOVIES:
-      return action.movies;
-    case ADD_MOVIE:
-      return [...state, action.movie];
-    case DELETE_MOVIE:
-      return state.filter((movie) => movie.id !== action.movie.id);
-    case INCREMENT_RATING:
-      return state.map((movie) =>
-        movie.id === action.movie.id ? action.movie : movie
-      );
-    default:
-      return state.map((movie) =>
-        movie.id === action.movie.id ? action.movie : movie
-      );
-  }
-};
-
 //----------THUNKS----------
 
 export const getMovies = () => {
   return async (dispatch) => {
     const movies = (await axios.get('/api/movies')).data;
-    dispatch(_getMovies());
+    dispatch(_getMovies(movies));
   };
 };
 
@@ -83,29 +62,50 @@ export const addMovie = () => {
   };
 };
 
-export const deleteMovie = (movie) => {
+export const deleteMovie = (id) => {
   return async (dispatch) => {
-    await axios.delete(`/api/movies/${movie.id}`);
-    dispatch(_deleteMovie(movie));
+    await axios.delete(`/api/movies/${id}`);
+    dispatch(_deleteMovie(id));
   };
 };
 
 export const incrementRating = (movie) => {
   return async (dispatch) => {
-    movie = (
-      await axios.put(`/api/movies/${movie.id}`, { rating: movie.rating + 1 })
-    ).data;
+    const updated = { ...movie, rating: movie.rating + 1 };
+    movie = (await axios.put(`/api/movies/${movie.id}`, updated)).data;
     dispatch(_incrementRating(movie));
   };
 };
 
 export const decrementRating = (movie) => {
   return async (dispatch) => {
-    movie = (
-      await axios.put(`/api/movies/${movie.id}`, { rating: movie.rating - 1 })
-    ).data;
+    const updated = { ...movie, rating: movie.rating - 1 };
+    movie = (await axios.put(`/api/movies/${movie.id}`, updated)).data;
     dispatch(_decrementRating(movie));
   };
+};
+
+//----------REDUCER----------
+
+const moviesReducer = (state = [], action) => {
+  switch (action.type) {
+    case GET_MOVIES:
+      return action.movies;
+    case ADD_MOVIE:
+      return [...state, action.movie];
+    case DELETE_MOVIE:
+      return state.filter((movie) => movie.id !== action.id);
+
+    case INCREMENT_RATING:
+      return state.map((movie) =>
+        movie.id === action.movie.id ? action.movie : movie
+      );
+
+    default:
+      return state.map((movie) =>
+        movie.id === action.movie.id ? action.movie : movie
+      );
+  }
 };
 
 //----------STORE----------

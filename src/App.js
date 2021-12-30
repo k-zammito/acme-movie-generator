@@ -1,51 +1,83 @@
-import { render } from 'react-dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import store, { addMovie, getMovies, moviesReducer } from './store';
-import axios from 'axios';
+import store, {
+  addMovie,
+  deleteMovie,
+  getMovies,
+  incrementRating,
+  decrementRating,
+} from './store';
 import Nav from './Nav';
+import Stars from './Stars';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      movies: [],
+      initialState: '',
     };
   }
 
-  async componentDidMount() {
-    const movies = (await axios.get('api/movies')).data;
-    this.setState({ movies });
+  componentDidMount() {
+    this.setState({ initialState: 'There are no movies!' });
   }
 
   render() {
-    // const { add, allMovies } = this.props;
-    // const { movies } = this.props.moviesReducer;
+    const movies = this.props.moviesReducer;
+    const { add, remove, addStar, removeStar } = this.props;
+    const { initialState } = this.state;
 
-    // console.log('PROPS!!! ~~~~>', movies);
-
-    // console.log('MOVIEZZZZZZ BROOO ------>', movie);
-
-    // LOUIS >>>>>>
-    //NOTES: NEED TO FIND MASTER MOVIES ARRAY AND MAP OVER THAT...
+    console.log(initialState);
 
     return (
       <div className="app">
         <Nav />
-        <ul>
-          {movies.map((movie) => {
-            return (
-              <a href="#" key={movie.id}>
-                <li key={movie.id}>
-                  {movie.name} ({movie.rating} stars)
-                </li>
-              </a>
-            );
-          })}
-        </ul>
-        <div>
-          <button onClick={add}>ADD MOVIE!</button>
-        </div>
+        <h1>Movie Count ({movies.length})</h1>
+        {movies.length === 0 ? (
+          <h2 className="initialState">{initialState}</h2>
+        ) : (
+          <div className="container">
+            {movies.map((movie) => {
+              return (
+                <div key={movie.id} className="movie">
+                  <h4 className={'movieText'}>
+                    {movie.name}
+                    {/* <button onClick={() => remove(movie.id)}>X</button> */}
+                    <HighlightOffIcon
+                      fontSize="small"
+                      onClick={() => remove(movie.id)}
+                    />
+                    <div>
+                      [Rating: {movie.rating} Stars]
+                      <Stars />
+                      <button
+                        onClick={
+                          movie.rating >= 5
+                            ? () =>
+                                alert('Movie ratings cannot be higher than 5')
+                            : () => addStar(movie)
+                        }
+                      >
+                        +
+                      </button>
+                      <button
+                        onClick={
+                          movie.rating <= 1
+                            ? () =>
+                                alert('Movie ratings cannot be lower than 1')
+                            : () => removeStar(movie)
+                        }
+                      >
+                        -
+                      </button>
+                    </div>
+                  </h4>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     );
   }
@@ -58,8 +90,17 @@ const mapDispatchToProps = (dispatch) => {
     add: () => {
       dispatch(addMovie());
     },
+    remove: (id) => {
+      dispatch(deleteMovie(id));
+    },
     allMovies: () => {
       dispatch(getMovies());
+    },
+    addStar: (movie) => {
+      dispatch(incrementRating(movie));
+    },
+    removeStar: (movie) => {
+      dispatch(decrementRating(movie));
     },
   };
 };
