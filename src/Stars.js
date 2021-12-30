@@ -3,9 +3,8 @@ import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 
-export default function Stars() {
+function Stars() {
   const [value, setValue] = React.useState(3);
-
   return (
     <Box
       sx={{
@@ -13,13 +12,22 @@ export default function Stars() {
       }}
     >
       <Typography component="legend">Rating</Typography>
+      <Rating name="read-only" value={value} readOnly />
+      {/* <Typography component="legend">Rating</Typography>
       <Rating
-        name="simple-controlled"
+        name="size-small"
+        size="small"
         value={value}
         onChange={(event, newValue) => {
+          if (newValue === NoLuggageOutlined) {
+            newValue = 1;
+          }
           setValue(newValue);
+          console.log(value);
         }}
-      />
+      /> */}
     </Box>
   );
 }
+
+export default Stars;

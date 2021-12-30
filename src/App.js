@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import store, {
-  addMovie,
+import {
   deleteMovie,
   getMovies,
   incrementRating,
@@ -25,10 +24,8 @@ class App extends Component {
 
   render() {
     const movies = this.props.moviesReducer;
-    const { add, remove, addStar, removeStar } = this.props;
+    const { remove, addStar, removeStar } = this.props;
     const { initialState } = this.state;
-
-    console.log(initialState);
 
     return (
       <div className="app">
@@ -50,7 +47,7 @@ class App extends Component {
                     />
                     <div>
                       [Rating: {movie.rating} Stars]
-                      <Stars />
+                      {/* <Stars rating={movie.rating} /> */}
                       <button
                         onClick={
                           movie.rating >= 5
@@ -87,9 +84,6 @@ const mapStateToProps = (state) => state;
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    add: () => {
-      dispatch(addMovie());
-    },
     remove: (id) => {
       dispatch(deleteMovie(id));
     },

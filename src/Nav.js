@@ -4,7 +4,7 @@ import MovieButton from './MovieButton';
 const Nav = () => {
   return (
     <nav>
-      ACME Movies <MovieButton />
+      <h3>ACME Movies</h3> <MovieButton />
     </nav>
   );
 };

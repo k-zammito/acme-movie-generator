@@ -33,8 +33,7 @@ body {
 .movie {
   display: flex;
   flex-flow: column wrap;
-  padding: 1rem;
-  height: 80px;
+  height: 120px;
 }
 
 nav {

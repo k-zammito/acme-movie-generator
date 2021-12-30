@@ -79,7 +79,10 @@ export const incrementRating = (movie) => {
 
 export const decrementRating = (movie) => {
   return async (dispatch) => {
-    const updated = { ...movie, rating: movie.rating - 1 };
+    const updated = {
+      ...movie,
+      rating: movie.rating - 1,
+    };
     movie = (await axios.put(`/api/movies/${movie.id}`, updated)).data;
     dispatch(_decrementRating(movie));
   };
@@ -96,10 +99,10 @@ const moviesReducer = (state = [], action) => {
     case DELETE_MOVIE:
       return state.filter((movie) => movie.id !== action.id);
 
-    case INCREMENT_RATING:
-      return state.map((movie) =>
-        movie.id === action.movie.id ? action.movie : movie
-      );
+    // case INCREMENT_RATING:
+    //   return state.map((movie) =>
+    //     movie.id === action.movie.id ? action.movie : movie
+    //   );
 
     default:
       return state.map((movie) =>
