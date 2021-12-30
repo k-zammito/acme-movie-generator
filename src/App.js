@@ -8,47 +8,26 @@ import Nav from './Nav';
 class App extends Component {
   constructor() {
     super();
-    // this.state = {
-    //   movies: [],
-    // };
+    this.state = {
+      movies: [],
+    };
   }
 
   async componentDidMount() {
-    //   const movies = (await axios.get('api/movies')).data;
+    const movies = (await axios.get('api/movies')).data;
     this.setState({ movies });
   }
 
   render() {
-    const { add, allMovies } = this.props;
-    const { movies } = this.props.moviesReducer;
+    // const { add, allMovies } = this.props;
+    // const { movies } = this.props.moviesReducer;
 
-    console.log('PROPS!!! ~~~~>', movies);
+    // console.log('PROPS!!! ~~~~>', movies);
 
     // console.log('MOVIEZZZZZZ BROOO ------>', movie);
 
     // LOUIS >>>>>>
-
     //NOTES: NEED TO FIND MASTER MOVIES ARRAY AND MAP OVER THAT...
-
-    //     return (
-    //       <div className="app">
-    //         <Nav />
-    //         <h1>Create a Movie! {movie.length}</h1>
-    //         <div>
-    //           {movie.map((movie) => {
-    //             return (
-    //               <h3 key={movie.data.id}>
-    //                 {_movie.data.name}
-    //                 {/* <button onClick={() => byeMovie(movie.data.id)}>X</button> */}
-    //               </h3>
-    //             );
-    //           })}
-    //         </div>
-    //         <button onClick={add}>Create Random Movie</button>
-    //       </div>
-    //     );
-    //   }
-    // }
 
     return (
       <div className="app">
@@ -64,7 +43,9 @@ class App extends Component {
             );
           })}
         </ul>
-        <button onClick={add}>ADD MOVIE!</button>
+        <div>
+          <button onClick={add}>ADD MOVIE!</button>
+        </div>
       </div>
     );
   }
