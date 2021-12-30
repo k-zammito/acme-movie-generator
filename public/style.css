@@ -1,0 +1,26 @@
+body {
+  background-color: dodgerblue;
+  color: cornsilk;
+}
+
+.app {
+  text-align: center;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+  background: rgb(13, 56, 93);
+  color: cornsilk;
+}
+
+a {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+  text-decoration: none;
+  color: cornsilk;
+}
