@@ -40,34 +40,25 @@ class App extends Component {
               {movies.map((movie) => {
                 return (
                   <div key={movie.id} className="movie">
+                    <HighlightOffIcon
+                      fontSize="small"
+                      onClick={() => remove(movie.id)}
+                    />
                     <h4 className={'movieText'}>
                       {movie.name}
-                      <HighlightOffIcon
-                        fontSize="small"
-                        onClick={() => remove(movie.id)}
-                      />
+
                       <div>
                         [Rating: {movie.rating} Stars]
-                        {/* <button onClick={() => addStar(movie)}>+</button>
-                        <button onClick={() => removeStar(movie)}>-</button> */}
-                        {/* <Stars rating={movie.rating} /> */}
+                        <Stars movie={movie} />
                         <button
-                          onClick={
-                            movie.rating >= 5
-                              ? () =>
-                                  alert('Movie ratings cannot be higher than 5')
-                              : () => addStar(movie)
-                          }
+                          onClick={() => addStar(movie)}
+                          disabled={movie.rating === 5 ? true : false}
                         >
                           +
                         </button>
                         <button
-                          onClick={
-                            movie.rating <= 1
-                              ? () =>
-                                  alert('Movie ratings cannot be lower than 1')
-                              : () => removeStar(movie)
-                          }
+                          onClick={() => removeStar(movie)}
+                          disabled={movie.rating === 1 ? true : false}
                         >
                           -
                         </button>
