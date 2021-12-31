@@ -35,6 +35,8 @@ body {
   flex-flow: column wrap;
   height: auto;
   border-style: double;
+  border-radius: 10px;
+  background-color: rgba(50, 77, 104, 0.363);
   padding: 10px;
   margin: 10px;
 }

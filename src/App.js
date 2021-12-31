@@ -51,16 +51,16 @@ class App extends Component {
                         [Rating: {movie.rating} Stars]
                         <Stars movie={movie} />
                         <button
-                          onClick={() => addStar(movie)}
-                          disabled={movie.rating === 5 ? true : false}
-                        >
-                          +
-                        </button>
-                        <button
                           onClick={() => removeStar(movie)}
                           disabled={movie.rating === 1 ? true : false}
                         >
                           -
+                        </button>
+                        <button
+                          onClick={() => addStar(movie)}
+                          disabled={movie.rating === 5 ? true : false}
+                        >
+                          +
                         </button>
                       </div>
                     </h4>

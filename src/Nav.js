@@ -6,7 +6,7 @@ const Nav = (props) => {
     <nav>
       <h3>ACME Movies</h3>
       <MovieButton />
-      <h4>Movie Count({props.movies.length})</h4>
+      <h4>Movie Count ({props.movies.length})</h4>
     </nav>
   );
 };

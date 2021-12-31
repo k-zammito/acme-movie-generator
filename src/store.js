@@ -71,14 +71,14 @@ export const deleteMovie = (id) => {
 
 export const incrementRating = (movie) => {
   return async (dispatch) => {
-    await axios.put(`/api/movies/${movie.id}`, { movie });
+    await axios.put(`/api/movies/${movie.id}`, movie);
     dispatch(_incrementRating(movie));
   };
 };
 
 export const decrementRating = (movie) => {
   return async (dispatch) => {
-    await axios.put(`/api/movies/${movie.id}`, { movie });
+    await axios.put(`/api/movies/${movie.id}`, movie);
     dispatch(_decrementRating(movie));
   };
 };
