@@ -29,32 +29,32 @@ Movie.createMovie = function () {
 const syncAndSeed = async () => {
   await conn.sync({ force: true });
 
-  await Movie.create({
-    name: 'Lord of the Rings: Return Of The King',
-  });
+  // await Movie.create({
+  //   name: 'Lord of the Rings: Return Of The King',
+  // });
 
-  await Movie.create({
-    name: 'Pulp Fuction',
-  });
+  // await Movie.create({
+  //   name: 'Pulp Fuction',
+  // });
 
-  await Movie.create({
-    name: 'The Matrix',
-    rating: 5,
-  });
+  // await Movie.create({
+  //   name: 'The Matrix',
+  //   rating: 5,
+  // });
 
-  await Movie.create({
-    name: 'The Godfather',
-    rating: 5,
-  });
+  // await Movie.create({
+  //   name: 'The Godfather',
+  //   rating: 5,
+  // });
 
-  await Movie.create({
-    name: 'Taxi Driver',
-    rating: 5,
-  });
+  // await Movie.create({
+  //   name: 'Taxi Driver',
+  //   rating: 5,
+  // });
 
-  await Movie.create({
-    name: 'V for Vendetta',
-  });
+  // await Movie.create({
+  //   name: 'V for Vendetta',
+  // });
 
   console.log('...seeded!');
 };

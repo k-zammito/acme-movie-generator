@@ -6,7 +6,12 @@ const {
 // GET /api/movies
 router.get('/movies', async (req, res, next) => {
   try {
-    const movies = await Movie.findAll();
+    const movies = await Movie.findAll({
+      order: [
+        ['rating', 'DESC'],
+        ['name', 'ASC'],
+      ],
+    });
     res.send(movies);
   } catch (error) {
     next(error);

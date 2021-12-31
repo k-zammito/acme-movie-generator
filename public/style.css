@@ -15,11 +15,11 @@ body {
 
 .container {
   width: 100%;
+  padding-top: 30px;
   height: auto;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  flex-flow: row wrap;
+  justify-content: center;
 }
 
 .addMovie {
@@ -33,7 +33,10 @@ body {
 .movie {
   display: flex;
   flex-flow: column wrap;
-  height: 120px;
+  height: auto;
+  border-style: double;
+  padding: 10px;
+  margin: 10px;
 }
 
 nav {
@@ -41,6 +44,7 @@ nav {
   justify-content: space-around;
   align-items: center;
   min-height: 10vh;
-  background: rgb(13, 56, 93);
+  background: rgb(20, 56, 93);
   color: cornsilk;
+  margin: 0px;
 }

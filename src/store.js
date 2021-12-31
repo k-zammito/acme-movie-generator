@@ -71,22 +71,36 @@ export const deleteMovie = (id) => {
 
 export const incrementRating = (movie) => {
   return async (dispatch) => {
-    const updated = { ...movie, rating: movie.rating + 1 };
-    movie = (await axios.put(`/api/movies/${movie.id}`, updated)).data;
+    await axios.put(`/api/movies/${movie.id}`, { movie });
     dispatch(_incrementRating(movie));
   };
 };
 
 export const decrementRating = (movie) => {
   return async (dispatch) => {
-    const updated = {
-      ...movie,
-      rating: movie.rating - 1,
-    };
-    movie = (await axios.put(`/api/movies/${movie.id}`, updated)).data;
+    await axios.put(`/api/movies/${movie.id}`, { movie });
     dispatch(_decrementRating(movie));
   };
 };
+
+// export const incrementRating = (movie) => {
+//   return async (dispatch) => {
+//     const updated = { ...movie, rating: movie.rating + 1 };
+//     movie = (await axios.put(`/api/movies/${movie.id}`, updated)).data;
+//     dispatch(_incrementRating(movie));
+//   };
+// };
+
+// export const decrementRating = (movie) => {
+//   return async (dispatch) => {
+//     const updated = {
+//       ...movie,
+//       rating: movie.rating - 1,
+//     };
+//     movie = (await axios.put(`/api/movies/${movie.id}`, updated)).data;
+//     dispatch(_decrementRating(movie));
+//   };
+// };
 
 //----------REDUCER----------
 
@@ -98,16 +112,28 @@ const moviesReducer = (state = [], action) => {
       return [...state, action.movie];
     case DELETE_MOVIE:
       return state.filter((movie) => movie.id !== action.id);
-
-    // case INCREMENT_RATING:
+    case INCREMENT_RATING:
+      return state.map((movie) => {
+        if (movie.id === action.movie.id) {
+          movie.rating++;
+          return movie;
+        }
+        return movie;
+      });
+    case DECREMENT_RATING:
+      return state.map((movie) => {
+        if (movie.id === action.movie.id) {
+          movie.rating--;
+          return movie;
+        } else {
+          return movie;
+        }
+      });
+    default:
+      return state;
     //   return state.map((movie) =>
     //     movie.id === action.movie.id ? action.movie : movie
     //   );
-
-    default:
-      return state.map((movie) =>
-        movie.id === action.movie.id ? action.movie : movie
-      );
   }
 };
 
