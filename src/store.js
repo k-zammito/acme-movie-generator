@@ -71,14 +71,20 @@ export const deleteMovie = (id) => {
 
 export const incrementRating = (movie) => {
   return async (dispatch) => {
-    await axios.put(`/api/movies/${movie.id}`, movie);
+    await axios.put(`/api/movies/${movie.id}`, {
+      rating: movie.rating,
+      id: movie.id,
+    });
     dispatch(_incrementRating(movie));
   };
 };
 
 export const decrementRating = (movie) => {
   return async (dispatch) => {
-    await axios.put(`/api/movies/${movie.id}`, movie);
+    await axios.put(`/api/movies/${movie.id}`, {
+      rating: movie.rating,
+      id: movie.id,
+    });
     dispatch(_decrementRating(movie));
   };
 };
@@ -107,7 +113,7 @@ export const decrementRating = (movie) => {
 const moviesReducer = (state = [], action) => {
   switch (action.type) {
     case GET_MOVIES:
-      return action.movies;
+      return action.movies.sort();
     case ADD_MOVIE:
       return [...state, action.movie];
     case DELETE_MOVIE:
@@ -131,9 +137,6 @@ const moviesReducer = (state = [], action) => {
       });
     default:
       return state;
-    //   return state.map((movie) =>
-    //     movie.id === action.movie.id ? action.movie : movie
-    //   );
   }
 };
 

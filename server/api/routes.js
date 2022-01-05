@@ -41,7 +41,7 @@ router.post('/movies', async (req, res, next) => {
 router.put('/movies/:id', async (req, res, next) => {
   try {
     const movie = await Movie.findByPk(req.params.id);
-    res.send(await movie.update(req.body));
+    res.send(await movie.update({ rating: req.body.rating }));
   } catch (error) {
     next(error);
   }

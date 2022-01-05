@@ -24,6 +24,10 @@ class App extends Component {
     console.log('PROPS ----->', this.props);
   }
 
+  async componentDidUpdate(prevProps, prevState) {
+    console.log('updated!!!--->', prevProps.moviesReducer.sort());
+  }
+
   render() {
     const movies = this.props.moviesReducer;
     const { remove, addStar, removeStar } = this.props;
@@ -37,36 +41,48 @@ class App extends Component {
         ) : (
           <>
             <div className="container">
-              {movies.map((movie) => {
-                return (
-                  <div key={movie.id} className="movie">
-                    <HighlightOffIcon
-                      fontSize="small"
-                      onClick={() => remove(movie.id)}
-                    />
-                    <h4 className={'movieText'}>
-                      {movie.name}
+              {movies
+                .sort((a, b) => b.rating - a.rating)
+                .map((movie) => {
+                  return (
+                    <div key={movie.id} className="movie">
+                      <HighlightOffIcon
+                        fontSize="small"
+                        onClick={() => remove(movie.id)}
+                      />
+                      <h4 className={'movieText'}>
+                        {movie.name}
 
-                      <div>
-                        [Rating: {movie.rating} Stars]
-                        <Stars movie={movie} />
-                        <button
-                          onClick={() => removeStar(movie)}
-                          disabled={movie.rating === 1 ? true : false}
-                        >
-                          -
-                        </button>
-                        <button
-                          onClick={() => addStar(movie)}
-                          disabled={movie.rating === 5 ? true : false}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </h4>
-                  </div>
-                );
-              })}
+                        <div>
+                          [Rating: {movie.rating} Stars]
+                          {/* <Stars movie={movie} /> */}
+                          <button
+                            onClick={() =>
+                              removeStar({
+                                rating: movie.rating - 1,
+                                id: movie.id,
+                              })
+                            }
+                            disabled={movie.rating === 1 ? true : false}
+                          >
+                            -
+                          </button>
+                          <button
+                            onClick={() =>
+                              addStar({
+                                rating: movie.rating + 1,
+                                id: movie.id,
+                              })
+                            }
+                            disabled={movie.rating === 5 ? true : false}
+                          >
+                            +
+                          </button>
+                        </div>
+                      </h4>
+                    </div>
+                  );
+                })}
             </div>
           </>
         )}
